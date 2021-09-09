@@ -1,9 +1,8 @@
 <template>
   <el-row type="flex" class="row-bg" justify="center">
     <el-col :xl="6" :lg="7">
-      <div class="login-form">
-        <h2>欢迎来到VueAdmin管理系统</h2>
-        <!--        <el-image style="width: 180px; height: 180px" :src="require('@/assets/markerhub/MarkerHub.jpg')"></el-image>-->
+      <div class="login-form"><h2>欢迎来到VueAdmin管理系统</h2>
+<!--        <el-image style="width: 180px; height: 180px" :src="require('@/assets/markerhub/MarkerHub.jpg')"></el-image>-->
         <p> 公众号 MarkerHub </p>
         <p> 扫码二维码，回复【VueAdmin】获取登录密码 </p></div>
     </el-col>
@@ -18,9 +17,9 @@
         <el-form-item label="密码" prop="password" style="width: 380px;">
           <el-input type="password" v-model="loginForm.password"></el-input>
         </el-form-item>
-          <el-form-item label="验证码" prop="code" style="width: 380px;">
-            <el-input v-model="loginForm.code" style="width: 172px; float: left;" maxlength="5"></el-input>
-            <el-image class="captchaImg" :src="captchaImg" @click="getCaptcha"></el-image>
+        <el-form-item label="验证码" prop="code" style="width: 380px;">
+          <el-input v-model="loginForm.code" style="width: 172px; float: left;" maxlength="5"></el-input>
+          <el-image class="captchaImg" :src="captchaImg" @click="getCaptcha"></el-image>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="submitForm('loginForm')">提交</el-button>
@@ -30,8 +29,7 @@
     </el-col>
   </el-row>
 </template>
-<script>
-import qs from 'qs'
+<script>   import qs from 'qs'
 
 export default {
   name: "Login", data() {
@@ -55,7 +53,7 @@ export default {
         if (valid) {
           this.$axios.post('/login?' + qs.stringify(this.loginForm)).then(res => {
             console.log(res.data)
-            const jwt = res.headers['authorization']                     // 将jwt存储到应用store中
+            const jwt = res.headers['authorization']
             this.$store.commit("SET_TOKEN", jwt)
             this.$router.push("/index")
           }).catch(error => {
@@ -82,8 +80,7 @@ export default {
     this.getCaptcha()
   }
 }</script>
-<style scoped>
-.el-col {
+<style scoped>   .el-col {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,8 +91,6 @@ export default {
 .el-row {
   height: 100%;
   background-color: #fafafa;
-  display: flex;
-  align-items: center;
 }
 
 .el-divider {
@@ -106,5 +101,4 @@ export default {
   float: left;
   margin-left: 8px;
   border-radius: 4px;
-}
-</style>
+}</style>

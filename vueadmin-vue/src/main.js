@@ -12,6 +12,8 @@ Vue.config.productionTip = false
 
 Vue.use(Element)
 
+require("./mock.js")
+
 new Vue({
   router,
   store,
