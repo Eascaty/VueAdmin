@@ -5,9 +5,8 @@ import store from './store'
 import Element from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css"
 
-import axios from 'axios'
-Vue.prototype.$axios = axios
-
+import request from "./axois";
+Vue.prototype.$axios = request
 Vue.config.productionTip = false
 
 Vue.use(Element)

@@ -26,5 +26,9 @@ Mock.mock('/captcha','get',() => {
 Mock.mock(RegExp('/login'), 'post', (config) => {
     // 这里无法在header添加authorization，直接跳过
     console.log("mock----------------login")
+
+    Result.code = 400
+    Result.msg = "验证码错误"
+
     return Result
 })
