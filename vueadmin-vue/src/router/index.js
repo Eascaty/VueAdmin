@@ -25,17 +25,17 @@ const routes = [
       {
         path: '/users',
         name: 'SysUser',
-        component: Index
+        component: User
       },
       {
-        path: '/index',
-        name: 'Index',
-        component: Index
+        path: '/roles',
+        name: 'SysRole',
+        component: Role
       },
       {
-        path: '/index',
-        name: 'Index',
-        component: Index
+        path: '/menus',
+        name: 'SysMenu',
+        component: Menu
       },
     ]
   },

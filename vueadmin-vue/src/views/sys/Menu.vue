@@ -4,7 +4,7 @@
 
 <script>
 export default {
-  name: "Menu.vue"
+  name: "Menu"
 }
 </script>
 
