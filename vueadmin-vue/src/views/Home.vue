@@ -13,15 +13,16 @@
 
         <div class="header-avatar">
 
-          <el-avatar size="medium"
-                     src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+          <el-avatar size="medium" :src="userInfo.avatar"></el-avatar>
 
           <el-dropdown>
   <span class="el-dropdown-link">
-    Admin<i class="el-icon-arrow-down el-icon--right"></i>
+   {{ userInfo.username}}<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
             <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>个人中心</el-dropdown-item>
+              <el-dropdown-item>
+                  <router-link to ="/UserCenter" >个人中心</router-link>
+              </el-dropdown-item>
               <el-dropdown-item>退出</el-dropdown-item>
 
             </el-dropdown-menu>
@@ -51,14 +52,35 @@ export default {
   components:{
     SideMenu
   },
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+  // methods: {
+  //   handleOpen(key, keyPath) {
+  //     console.log(key, keyPath);
+  //   },
+  //   handleClose(key, keyPath) {
+  //     console.log(key, keyPath);
+  //   }
+  // }
+    data(){
+      return {
+            userInfo:{
+                id:"",
+                username: "",
+                avatar: ""
+
+            }
+      }
     },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    created() {
+        this.getUserInfo()
+    },
+    methods:{
+      getUserInfo(){
+          this.$axios.get("/sys/userInfo").then(res =>{
+
+              this.userInfo =  res.data.data
+          })
+      }
     }
-  }
 
 }
 </script>
