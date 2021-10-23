@@ -44,3 +44,8 @@ Mock.mock("/sys/userInfo", 'get', () => {
     }
     return Result
 })
+
+Mock.mock('/logout','post',()=>{
+
+    return Result
+})

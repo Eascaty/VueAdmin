@@ -23,7 +23,7 @@
               <el-dropdown-item>
                   <router-link to ="/UserCenter" >个人中心</router-link>
               </el-dropdown-item>
-              <el-dropdown-item>退出</el-dropdown-item>
+              <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
 
             </el-dropdown-menu>
           </el-dropdown>
@@ -79,7 +79,17 @@ export default {
 
               this.userInfo =  res.data.data
           })
-      }
+      },
+        logout(){
+          this.$axios.post("/logout").then(res =>{
+              localStorage.clear()
+              sessionStorage.clear()
+
+              this.$store.commit("resetState")
+
+              this.$router.push("/login")
+          })
+        }
     }
 
 }
@@ -131,6 +141,9 @@ export default {
 .el-icon-arrow-down {
   font-size: 12px;
 }
+    a{
+        text-decoration: none;
+    }
 
 
 </style>
