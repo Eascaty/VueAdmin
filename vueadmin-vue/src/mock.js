@@ -66,8 +66,8 @@ Mock.mock('/sys/menu/nav', 'get', () => {
                     name: 'SysUser',
                     title: '用户管理',
                     icon: 'el-icon-s-custom',
-                    path: '/sys/user',
-                    component: 'sys/user',
+                    path: '/sys/users',
+                    component: 'sys/User',
                     children: []
                 }
             ]

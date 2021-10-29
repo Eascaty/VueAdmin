@@ -83,6 +83,7 @@ router.beforeEach((to, from, next) => {
       store.commit("setPermList",res.data.data.authoritys)
 
       console.log(store.state.menus.menuList)
+    //  动态绑定路由
 
     let newRoutes = router.options.routes
 
@@ -131,7 +132,7 @@ router.beforeEach((to, from, next) => {
           title: menu.title
         }
       }
-         
+
       route.component = () => import( '@/views/'+menu.component+'.vue')
 
         return route
