@@ -82,6 +82,7 @@ export default {
       },
         logout(){
           this.$axios.post("/logout").then(res =>{
+
               localStorage.clear()
               sessionStorage.clear()
 

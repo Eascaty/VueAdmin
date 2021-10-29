@@ -4,6 +4,7 @@ import router from "./router";
 
 // axios.defaults.baseURL = "http://localhost:8081"
 const request = axios.create({timeout: 5000, headers: {'Content-Type': 'application/json; charset=utf-8'}})
+
 request.interceptors.request.use(config => {
     config.headers['Authorization'] = localStorage.getItem("token") // 请求头带上token
     return config
