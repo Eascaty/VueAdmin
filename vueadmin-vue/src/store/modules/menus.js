@@ -47,6 +47,16 @@ export default  {
 
             state.editableTabsValue = tab.name;
         },
+        resetState:(state) => {
+            state.menuList = '',
+                state.permList = '',
+                state.hasRoutes ='' ,
+                state.editableTabsValue ='Index',
+                state.editableTabs=[{
+                    title: '首页',
+                    name: 'Index',
+                }]
+        }
 
     },
 
