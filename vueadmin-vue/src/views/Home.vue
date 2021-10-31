@@ -35,6 +35,7 @@
 
       </el-header>
       <el-main>
+          <Tabs></Tabs>
         <router-view></router-view>
 
       </el-main>
@@ -47,10 +48,13 @@
 <script>
 
 import SideMenu from "./inc/SideMenu";
+import Tabs from "./inc/Tabs";
+
+
 export default {
   name: "Index",
   components:{
-    SideMenu
+    SideMenu,Tabs
   },
   // methods: {
   //   handleOpen(key, keyPath) {
@@ -131,8 +135,10 @@ export default {
   /*background-color: #E9EEF3;*/
   color: #333;
   text-align: center;
-  line-height: 160px;
+  /*line-height: 160px;*/
+    padding: 0;
 }
+
 
 .el-dropdown-link {
   cursor: pointer;
