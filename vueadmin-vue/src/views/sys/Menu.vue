@@ -83,11 +83,11 @@
 
                 <template slot-scope="scope">
 
-                    <el-button type="text">编辑</el-button>
+                    <el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
                     <el-divider direction="vertical"></el-divider>
                     <template>
-                        <el-popconfirm  title="这是一段内容确定删除吗？">
-                            <el-button type="text" slot="reference">删除</el-button>
+                        <el-popconfirm  title="这是一段内容确定删除吗？" @confirm="delHandle(scope.row.id)">
+                            <el-button type="text" slot="reference" >删除</el-button>
                         </el-popconfirm>
                     </template>
 
@@ -160,7 +160,7 @@
             </el-form>
             <div slot="footer" class="dialog-footer">
                 <el-button @click="resetForm('editForm')">取 消</el-button>
-                <el-button type="primary" @click="submiteditForm('editForm')">确 定</el-button>
+                <el-button type="primary" @click="submitForm('editForm')">确 定</el-button>
             </div>
         </el-dialog>
 
@@ -169,6 +169,8 @@
 </template>
 
 <script>
+    import qs from "qs";
+
     export default {
         name: "Menu",
         data() {
@@ -184,39 +186,7 @@
                     orderNum: [{required: true, message: '请填入排序号', trigger: 'blur'}],
                     statu: [{required: true, message: '请选择状态', trigger: 'blur'}]
                 },
-                tableData: [{
-                    id: 1,
-                    date: '2016-05-02',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1518 弄',
-                    statu: 1,
-
-                }, {
-                    id: 2,
-                    date: '2016-05-04',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1517 弄',
-                    statu: 0
-                }, {
-                    id: 3,
-                    date: '2016-05-01',
-                    name: '王小虎',
-                    address: '上海市普陀区金沙江路 1519 弄',
-                    type: 0,
-                    children: [{
-                        id: 31,
-                        date: '2016-05-01',
-                        name: '王小虎55',
-                        address: '上海市普陀区金沙江路 1519 弄',
-                        type: 1
-                    }, {
-                        id: 32,
-                        date: '2016-05-01',
-                        name: '王小虎66',
-                        address: '上海市普陀区金沙江路 1519 弄',
-                        type: 2
-                    }]
-                }]
+                tableData: [ ]
             }
 
 
@@ -238,6 +208,58 @@
             getMenuTree(){
                 this.$axios.get("/sys/menu/list").then(res => {
                     this.tableData =res.data.data
+                })
+            },
+            submitForm(formName){
+                this.$refs[formName].validate((valid) => {
+                    if (valid) {
+                        this.$axios.post('/sys/menu'+(this.editForm.id?'update' : 'save') + qs.stringify(this.loginForm)).then(res => {
+                            this.$message({
+                                showClose: true,
+                                message: '恭喜你，这是一条成功消息',
+                                type: 'success',
+                                onClose:() => {
+                                        this.getMenuTree();
+                                }
+                            });
+
+                                this.dialogVisible = false
+                        }).catch(error => {
+                            this.getCaptcha();
+                            console.log('error submit!!');
+                        })
+                    } else {
+                        this.getCaptcha();
+                        console.log('error submit!!');
+                        return false;
+                    }
+                });
+            },
+            editHandle(id){
+                this.$axios.get('/sys/menu/info/' + id).then(res => {
+                    this.editForm = res.data.data
+
+                    this.dialogVisible = true
+                })
+            },
+            resetForm(formName) {
+                this.$refs[formName].resetFields();
+                this.dialogVisible = false
+                this.editForm = {};
+            },
+            handleClose(){
+                resetForm('editForm')
+            },
+            delHandle(id){
+                this.$axios.post('/sys/menu/delete/' +id).then(res => {
+                    this.$message({
+                        showClose: true,
+                        message: '恭喜你，这是一条成功消息',
+                        type: 'success',
+                        onClose:() => {
+                            this.getMenuTree();
+                        }
+                    });
                 })
             }
         }
