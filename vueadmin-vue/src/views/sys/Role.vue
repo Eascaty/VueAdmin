@@ -24,9 +24,12 @@
 
 
             <el-form-item>
-                <el-popconfirm title="这是确定批量删除吗？" @confirm="">
+                <el-popconfirm title="这是确定批量删除吗？" @confirm="delHandle(null)">
                     <el-button type="danger" slot="reference" :disabled="delBtlStatu">批量删除</el-button>
                 </el-popconfirm>
+
+
+
             </el-form-item>
 
         </el-form>
@@ -172,7 +175,9 @@
 
                       statu: [{required: true, message: '请选择状态', trigger: 'blur'}]
               },
+                multipleSelection: []
             }
+
         },
         created() {
           this.getRoleList();
@@ -188,12 +193,21 @@
                 }
             },
             handleSelectionChange(val) {
+                console.log("勾选")
+                console.log(val)
                 this.multipleSelection = val;
+
+                this.delBtlStatu = val.length == 0
             }, handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
+                this.size =  val
+                this.getRoleList();
+
             },
             handleCurrentChange(val) {
                 console.log(`当前页: ${val}`);
+                this.current = val
+                this.getRoleList();
             },
             resetForm(formName) {
                 this.$refs[formName].resetFields();
@@ -250,7 +264,20 @@
                     this.dialogVisible = true
                 })
             },delHandle(id){
-                this.$axios.post('/sys/role/delete/' +id).then(res => {
+
+                var ids = []
+
+
+                if(id){
+                    ids.push(id)
+                }else{
+                    this.multipleSelection.forEach(row =>{
+                        ids.push(row.id)
+                    })
+                }
+                console.log(ids)
+
+                this.$axios.post('/sys/role/delete',ids).then(res => {
                     this.$message({
                         showClose: true,
                         message: '恭喜你，操作成功',
