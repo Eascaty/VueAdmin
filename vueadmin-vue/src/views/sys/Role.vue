@@ -29,7 +29,6 @@
                 </el-popconfirm>
 
 
-
             </el-form-item>
 
         </el-form>
@@ -83,7 +82,7 @@
                 <template slot-scope="scope">
 
 
-                    <el-button type="text" @click="editHandle(scope.row.id)">分配权限</el-button>
+                    <el-button type="text" @click="permHandle(scope.row.id)">分配权限</el-button>
                     <el-divider direction="vertical"></el-divider>
 
 
@@ -148,7 +147,42 @@
         </el-dialog>
 
 
+        <el-dialog
+                title="分配权限"
+                :visible.sync="permDialogVisible"
+                width="600px">
+
+            <el-form :model="permForm">
+
+
+                <el-tree
+                        :data="permTreeData"
+                        show-checkbox
+                        ref="permTree"
+                        node-key="id"
+                        :default-expanded-keys="[2, 3]"
+                        :default-checked-keys="[5]"
+                        check-strictly=true
+                        :default-expanded-all=true
+
+                        :props="defaultProps">
+                </el-tree>
+
+                <span slot="footer" class="dialog-footer">
+    <el-button @click="permDialogVisible = false">取 消</el-button>
+    <el-button type="primary" @click="submitPermFormHandle('permForm')">确 定</el-button>
+  </span>
+
+
+
+            </el-form>
+
+
+        </el-dialog>
+
     </div>
+
+
 </template>
 
 <script>
@@ -169,18 +203,33 @@
                 editForm: {},
 
                 tableData: [],
-              editFormRules: {
-                 name: [{required: true, message: '请输入角色名称', trigger: 'blur'}],
-                     code: [{required: true, message: '请输入唯一编码', trigger: 'blur'}],
+                editFormRules: {
+                    name: [{required: true, message: '请输入角色名称', trigger: 'blur'}],
+                    code: [{required: true, message: '请输入唯一编码', trigger: 'blur'}],
 
-                      statu: [{required: true, message: '请选择状态', trigger: 'blur'}]
-              },
-                multipleSelection: []
+                    statu: [{required: true, message: '请选择状态', trigger: 'blur'}]
+                },
+                multipleSelection: [],
+
+                permDialogVisible: false,
+
+                permForm: {},
+                defaultProps: {
+                    children: 'children',
+                    label: 'name'
+                },
+                permTreeData: []
+
             }
 
         },
         created() {
-          this.getRoleList();
+            this.getRoleList();
+
+            this.$axios.get('/sys/menu/list').then(res => {
+                this.permTreeData = res.data.data
+            })
+
         },
         methods: {
             toggleSelection(rows) {
@@ -200,7 +249,7 @@
                 this.delBtlStatu = val.length == 0
             }, handleSizeChange(val) {
                 console.log(`每页 ${val} 条`);
-                this.size =  val
+                this.size = val
                 this.getRoleList();
 
             },
@@ -217,30 +266,30 @@
             handleClose() {
                 this.resetForm('editForm')
             },
-            getRoleList(){
-                this.$axios.get("/sys/role/list",{
-                    params:{
-                        name:this.searchForm.name,
+            getRoleList() {
+                this.$axios.get("/sys/role/list", {
+                    params: {
+                        name: this.searchForm.name,
                         current: this.current,
-                        size:this.size
+                        size: this.size
                     }
                 }).then(res => {
-                    this.tableData =res.data.data.records;
+                    this.tableData = res.data.data.records;
                     this.size = res.data.data.size;
                     this.current = res.data.data.current;
                     this.total = res.data.data.total;
 
                 })
             },
-            submitForm(formName){
+            submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$axios.post('/sys/role/'+(this.editForm.id?'update' : 'save') + qs.stringify(this.editForm)).then(res => {
+                        this.$axios.post('/sys/role/' + (this.editForm.id ? 'update' : 'save') + qs.stringify(this.editForm)).then(res => {
                             this.$message({
                                 showClose: true,
                                 message: '恭喜你，操作成功',
                                 type: 'success',
-                                onClose:() => {
+                                onClose: () => {
                                     this.getRoleList();
                                 }
                             });
@@ -257,36 +306,53 @@
                     }
                 });
             },
-            editHandle(id){
+            editHandle(id) {
                 this.$axios.get('/sys/role/info/' + id).then(res => {
                     this.editForm = res.data.data
 
                     this.dialogVisible = true
                 })
-            },delHandle(id){
+            }, delHandle(id) {
 
                 var ids = []
 
 
-                if(id){
+                if (id) {
                     ids.push(id)
-                }else{
-                    this.multipleSelection.forEach(row =>{
+                } else {
+                    this.multipleSelection.forEach(row => {
                         ids.push(row.id)
                     })
                 }
                 console.log(ids)
 
-                this.$axios.post('/sys/role/delete',ids).then(res => {
+                this.$axios.post('/sys/role/delete', ids).then(res => {
                     this.$message({
                         showClose: true,
                         message: '恭喜你，操作成功',
                         type: 'success',
-                        onClose:() => {
+                        onClose: () => {
                             this.getRoleList();
                         }
                     });
                 })
+            },
+            permHandle(id) {
+                this.permDialogVisible = true;
+
+                this.$axios.get('/sys/role/info/'+id).then(res => {
+
+                        this.$refs.tree.setCheckedKeys(res.data.menuIds);
+
+                        this.perForm = res.data.data
+
+                })
+            },
+
+
+            submitPermFormHandler(formName) {
+                var menuid
+
             }
         }
 
