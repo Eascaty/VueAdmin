@@ -141,8 +141,8 @@
 
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="resetForm('editForm')">取 消</el-button>
-                <el-button type="primary" @click="submitForm('editForm')">确 定</el-button>
+                <el-button @click="resetForm('editForm')">取消</el-button>
+                <el-button type="primary" @click="submitForm('editForm')">确定</el-button>
             </div>
         </el-dialog>
 
@@ -162,20 +162,22 @@
                         node-key="id"
                         :default-expanded-keys="[2, 3]"
                         :default-checked-keys="[5]"
-                        check-strictly=true
+                        :check-strictly=true
                         :default-expanded-all=true
 
                         :props="defaultProps">
-                </el-tree>
+                </el-tree></el-form>
 
+
+<!--            这里的是点击分配权限后的弹窗-->
                 <span slot="footer" class="dialog-footer">
     <el-button @click="permDialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="submitPermFormHandle('permForm')">确 定</el-button>
+    <el-button type="primary" @click="submitPermFormHandler('permForm')">确 定</el-button>
   </span>
 
 
 
-            </el-form>
+
 
 
         </el-dialog>
@@ -342,18 +344,32 @@
 
                 this.$axios.get('/sys/role/info/'+id).then(res => {
 
-                        this.$refs.tree.setCheckedKeys(res.data.menuIds);
+                        // this.$refs.tree.setCheckedKeys(res.data.menuIds)
+                        //报错
+                        // this.permForm = res.data.data
+                    this.$refs.permTree.setCheckedKeys(res.data.data.menuIds);
+                    this.permForm = res.data.data
 
-                        this.perForm = res.data.data
 
                 })
             },
-
-
             submitPermFormHandler(formName) {
-                var menuid
+                var menuIds = this.$refs.permTree.getCheckedKeys()
+                console.log(menuIds);
+                this.$axios.post('/sys/role/perm' + this.permForm.id,menuIds).then(res=>{
+                    this.$message({
+                        showClose: true,
+                        message: '恭喜你，操作成功',
+                        type: 'success',
+                        onClose: () => {
+                            this.getRoleList();
+                        }
+                    });
+                    this.permDialogVisible = false
 
-            }
+
+                })
+            },
         }
 
 

@@ -73,6 +73,7 @@
                                 confirmButtonText: '确定',
                                 callback: action => {
                                     this.$refs[formName].resetFields();
+
                                 }
                             });
                         })
