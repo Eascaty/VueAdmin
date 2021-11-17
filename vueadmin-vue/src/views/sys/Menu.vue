@@ -86,8 +86,8 @@
                     <el-button type="text" @click="editHandle(scope.row.id)">编辑</el-button>
                     <el-divider direction="vertical"></el-divider>
                     <template>
-                        <el-popconfirm  title="这是一段内容确定删除吗？" @confirm="delHandle(scope.row.id)">
-                            <el-button type="text" slot="reference" >删除</el-button>
+                        <el-popconfirm title="这是一段内容确定删除吗？" @confirm="delHandle(scope.row.id)">
+                            <el-button type="text" slot="reference">删除</el-button>
                         </el-popconfirm>
                     </template>
 
@@ -186,7 +186,7 @@
                     orderNum: [{required: true, message: '请填入排序号', trigger: 'blur'}],
                     statu: [{required: true, message: '请选择状态', trigger: 'blur'}]
                 },
-                tableData: [ ]
+                tableData: []
             }
 
 
@@ -205,26 +205,26 @@
             this.getMenuTree()
         },
         methods: {
-            getMenuTree(){
+            getMenuTree() {
                 this.$axios.get("/sys/menu/list").then(res => {
-                    this.tableData =res.data.data
+                    this.tableData = res.data.data
                 })
             },
 
-            submitForm(formName){
+            submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$axios.post('/sys/menu'+(this.editForm.id?'update' : 'save') + qs.stringify(this.loginForm)).then(res => {
+                        this.$axios.post('/sys/menu' + (this.editForm.id ? 'update' : 'save') + qs.stringify(this.loginForm)).then(res => {
                             this.$message({
                                 showClose: true,
                                 message: '恭喜你，这是一条成功消息',
                                 type: 'success',
-                                onClose:() => {
-                                        this.getMenuTree();
+                                onClose: () => {
+                                    this.getMenuTree();
                                 }
                             });
 
-                                this.dialogVisible = false
+                            this.dialogVisible = false
                         }).catch(error => {
                             this.getCaptcha();
                             console.log('error submit!!');
@@ -236,7 +236,7 @@
                     }
                 });
             },
-            editHandle(id){
+            editHandle(id) {
                 this.$axios.get('/sys/menu/info/' + id).then(res => {
                     this.editForm = res.data.data
 
@@ -248,16 +248,16 @@
                 this.dialogVisible = false
                 this.editForm = {};
             },
-            handleClose(){
+            handleClose() {
                 resetForm('editForm')
             },
-            delHandle(id){
-                this.$axios.post('/sys/menu/delete/' +id).then(res => {
+            delHandle(id) {
+                this.$axios.post('/sys/menu/delete/' + id).then(res => {
                     this.$message({
                         showClose: true,
                         message: '恭喜你，这是一条成功消息',
                         type: 'success',
-                        onClose:() => {
+                        onClose: () => {
                             this.getMenuTree();
                         }
                     });

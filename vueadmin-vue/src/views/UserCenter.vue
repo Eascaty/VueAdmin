@@ -34,8 +34,7 @@
                 }
             };
             return {
-                userInfo: {
-                },
+                userInfo: {},
                 passForm: {
                     password: '',
                     checkPass: '',
@@ -43,14 +42,14 @@
                 },
                 rules: {
                     password: [
-                        { required: true, message: '请输入新密码', trigger: 'blur' },
-                        { min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur' }
+                        {required: true, message: '请输入新密码', trigger: 'blur'},
+                        {min: 6, max: 12, message: '长度在 6 到 12 个字符', trigger: 'blur'}
                     ],
                     checkPass: [
-                        { required: true, validator: validatePass, trigger: 'blur' }
+                        {required: true, validator: validatePass, trigger: 'blur'}
                     ],
                     currentPass: [
-                        { required: true, message: '请输入当前密码', trigger: 'blur' },
+                        {required: true, message: '请输入当前密码', trigger: 'blur'},
                     ]
                 }
             }
