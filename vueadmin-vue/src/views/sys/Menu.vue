@@ -4,7 +4,7 @@
         <el-form :inline="true">
 
             <el-form-item>
-                <el-button type="primary" @click="dialogVisible = true">新增</el-button>
+                <el-button type="primary" @click="dialogVisible = true" v-if="hasAuth('sys:menu:save')">新增</el-button>
             </el-form-item>
 
 

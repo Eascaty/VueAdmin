@@ -50,7 +50,7 @@ Mock.mock('/logout', 'post', () => {
     return Result
 })
 
-
+//获取用户菜单以及权限接口
 Mock.mock('/sys/menu/nav', 'get', () => {
 
     let nav = [
@@ -108,7 +108,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
         }
 
     ]
-    let authoritys = []
+    let authoritys = ['sys:user:list',"sys:user:save",'sys:user:delete']
 
     Result.data = {
         nav: nav,

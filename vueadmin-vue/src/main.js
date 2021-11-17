@@ -6,7 +6,8 @@ import store from './store'
 import Element from 'element-ui'
 import "element-ui/lib/theme-chalk/index.css"
 
-import request from "./axois";
+import request from "./axois"
+import global from "./globalFun"
 
 Vue.prototype.$axios = request
 Vue.config.productionTip = false

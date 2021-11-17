@@ -15,15 +15,15 @@
             </el-form-item>
 
             <el-form-item>
-<!--                <el-button type="primary" @click="dialogVisible = true" v-if="hasAuth('sys:user:save')">新增</el-button>-->
-                <el-button type="primary" @click="dialogVisible = true" >新增</el-button>
-
+                <!--权限控制-->
+                <el-button type="primary" @click="dialogVisible = true" v-if="hasAuth('sys:user:save')">新增</el-button>
 
             </el-form-item>
             <el-form-item>
                 <el-popconfirm title="这是确定批量删除吗？" @confirm="delHandle(null)">
-                                        <el-button type="danger" slot="reference" :disabled="delBtlStatu" >批量删除</el-button>
-<!--                    <el-button type="danger" slot="reference" :disabled="delBtlStatu" v-if="hasAuth('sys:user:delete')">批量删除</el-button>-->
+                    <el-button type="danger" slot="reference" :disabled="delBtlStatu" v-if="hasAuth('sys:user:delete')">
+                        批量删除
+                    </el-button>
                 </el-popconfirm>
             </el-form-item>
         </el-form>
@@ -59,7 +59,7 @@
                     prop="code"
                     label="角色名称">
                 <template slot-scope="scope">
-<!--                    这里roles是引用mock里面的data-->
+                    <!--                    这里roles是引用mock里面的data-->
                     <el-tag size="small" type="info" v-for="item in scope.row.roles">{{item.name}}</el-tag>
                 </template>
 
@@ -143,14 +143,14 @@
                     ></el-alert>
                 </el-form-item>
 
-                <el-form-item label="邮箱"  prop="email" label-width="100px">
+                <el-form-item label="邮箱" prop="email" label-width="100px">
                     <el-input v-model="editForm.email" autocomplete="off"></el-input>
                 </el-form-item>
-                <el-form-item label="手机号"  prop="phone" label-width="100px">
+                <el-form-item label="手机号" prop="phone" label-width="100px">
                     <el-input v-model="editForm.phone" autocomplete="off"></el-input>
                 </el-form-item>
 
-                <el-form-item label="状态"  prop="statu" label-width="100px">
+                <el-form-item label="状态" prop="statu" label-width="100px">
                     <el-radio-group v-model="editForm.statu">
                         <el-radio :label="0">禁用</el-radio>
                         <el-radio :label="1">正常</el-radio>
@@ -201,9 +201,7 @@
                 current: 1,
 
                 dialogVisible: false,
-                editForm: {
-
-                },
+                editForm: {},
 
                 tableData: [],
 
@@ -227,7 +225,7 @@
                     label: 'name'
                 },
                 roleForm: {},
-                roleTreeData:  [],
+                roleTreeData: [],
                 treeCheckedKeys: [],
                 checkStrictly: true
 
@@ -296,14 +294,14 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$axios.post('/sys/user/' + (this.editForm.id?'update' : 'save'), this.editForm)
+                        this.$axios.post('/sys/user/' + (this.editForm.id ? 'update' : 'save'), this.editForm)
                             .then(res => {
 
                                 this.$message({
                                     showClose: true,
                                     message: '恭喜你，操作成功',
                                     type: 'success',
-                                    onClose:() => {
+                                    onClose: () => {
                                         this.getUserList()
                                     }
                                 });
@@ -342,14 +340,14 @@
                         showClose: true,
                         message: '恭喜你，操作成功',
                         type: 'success',
-                        onClose:() => {
+                        onClose: () => {
                             this.getUserList()
                         }
                     });
                 })
             },
 
-            roleHandle (id) {
+            roleHandle(id) {
                 this.roleDialogFormVisible = true
 
                 this.$axios.get('/sys/user/info/' + id).then(res => {
@@ -373,7 +371,7 @@
                         showClose: true,
                         message: '恭喜你，操作成功',
                         type: 'success',
-                        onClose:() => {
+                        onClose: () => {
                             this.getUserList()
                         }
                     });
