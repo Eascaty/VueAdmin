@@ -108,7 +108,7 @@ Mock.mock('/sys/menu/nav', 'get', () => {
         }
 
     ]
-    let authoritys = ['sys:user:list', "sys:user:save", 'sys:user:delete']
+    let authoritys = ['sys:user:list',"sys:user:save",'sys:user:delete']
 
     Result.data = {
         nav: nav,
@@ -119,10 +119,10 @@ Mock.mock('/sys/menu/nav', 'get', () => {
 })
 
 
-Mock.mock(RegExp('/sys/role/*'), 'post', () => {
+Mock.mock(RegExp('/sys/role/*'),'post',()=>{
 
 
-    return Result
+        return Result
 })
 
 //////////////// 菜单管理 ////////////////
