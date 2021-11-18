@@ -1,11 +1,11 @@
-server:
-  port: 8081
-  # DataSource Config
+  server:
+    port: 8081
+#    注意缩进
   spring:
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/vueadmin?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
         username: root
-        password: admin
+        password:
   mybatis-plus:
      mapper-locations: classpath*:/mapper/**Mapper.xml
