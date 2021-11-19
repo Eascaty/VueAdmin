@@ -8,6 +8,7 @@
         username: root
         password:
     security:
+#        设置固定security的账号密码
         user:
             name: user
             password: 111111
