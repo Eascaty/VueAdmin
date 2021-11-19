@@ -14,12 +14,12 @@ import javax.servlet.http.HttpServletResponse;
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    
+
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(value = RuntimeException.class)
-    public Result handler(RuntimeException e) {
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public Result handler(IllegalArgumentException e) {
         log.error("Assert异常：----------------{}", e.getMessage());
         return Result.fail(e.getMessage());
     }
