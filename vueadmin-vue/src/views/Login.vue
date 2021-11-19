@@ -72,6 +72,7 @@ export default {
             this.$message("请扫描左边的二维码，回复获取登录密码");
         }, getCaptcha() {
             this.$axios.get('/captcha').then(res => {
+                //这里的名字要和后端/captcha的形参保持一致
                 this.loginForm.token = res.data.data.token
                 this.captchaImg = res.data.data.captchaImg
             })

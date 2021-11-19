@@ -1,5 +1,6 @@
 package com.Eascaty.controller;
 
+import com.Eascaty.utils.RedisUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.Eascaty.service.*;
 //import com.Eascaty.utils.RedisUtil;
@@ -13,8 +14,8 @@ public class BaseController {
     @Autowired
     HttpServletRequest req;
 
-//    @Autowired
-//    RedisUtil redisUtil;
+    @Autowired
+    RedisUtil redisUtil;
 
     @Autowired
     SysUserService sysUserService;

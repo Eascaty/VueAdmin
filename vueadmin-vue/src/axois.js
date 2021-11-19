@@ -2,7 +2,8 @@ import axios from "axios";
 import Element from 'element-ui'
 import router from "./router";
 
-// axios.defaults.baseURL = "http://localhost:8081"
+//启动后端后配的baseurl
+axios.defaults.baseURL = "http://localhost:8081"
 const request = axios.create({timeout: 5000, headers: {'Content-Type': 'application/json; charset=utf-8'}})
 
 request.interceptors.request.use(config => {
