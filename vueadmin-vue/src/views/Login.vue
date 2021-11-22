@@ -3,8 +3,8 @@
         <el-col :xl="6" :lg="7">
             <div class="login-form"><h2>欢迎来到VueAdmin管理系统</h2>
                 <!--        <el-image style="width: 180px; height: 180px" :src="require('@/assets/markerhub/MarkerHub.jpg')"></el-image>-->
-                <p> 公众号 MarkerHub </p>
-                <p> 扫码二维码，获取登录密码 </p></div>
+                <p> 小赵管理系统 </p>
+                <p> 问小赵获取登录密码 </p></div>
         </el-col>
         <el-col :span="1">
             <el-divider direction="vertical"></el-divider>
