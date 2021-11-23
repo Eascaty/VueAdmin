@@ -34,7 +34,7 @@
 export default {
     name: "Login", data() {
         return {
-            loginForm: {username: 'admin', password: 'markerhub', code: '11111', token: '',},
+            loginForm: {username: '3', password: '3', code: '', token: '',},
             rules: {
                 username: [{required: true, message: '请输入用户名', trigger: 'blur'}],
                 password: [{required: true, message: '请输入密码', trigger: 'blur'}],
@@ -56,13 +56,10 @@ export default {
                         const jwt = res.headers['authorization']
                         this.$store.commit("SET_TOKEN", jwt)
                         this.$router.push("/index")
-                    }).catch(error => {
-                        this.getCaptcha();
-                        console.log('error submit!!');
                     })
                 } else {
-                    this.getCaptcha();
-                    console.log('error submit!!');
+                    // this.getCaptcha();
+                    console.log('error submit!？');
                     return false;
                 }
             });
@@ -73,8 +70,11 @@ export default {
         }, getCaptcha() {
             this.$axios.get('/captcha').then(res => {
                 //这里的名字要和后端/captcha的形参保持一致
+                console.log("/captcha")
+                console.log(res)
                 this.loginForm.token = res.data.data.token
                 this.captchaImg = res.data.data.captchaImg
+                this.loginForm.code = ''
             })
         }
     }, created() {
