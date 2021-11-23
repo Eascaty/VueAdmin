@@ -1,16 +1,21 @@
-  server:
-    port: 8081
+server:
+  port: 8081
 #    注意缩进
-  spring:
-    datasource:
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        url: jdbc:mysql://localhost:3306/vueadmin?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
-        username: root
-        password:
-    security:
-#        设置固定security的账号密码
-        user:
-            name: user
-            password: 111111
-  mybatis-plus:
-     mapper-locations: classpath*:/mapper/**Mapper.xml
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/vueadmin?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    username: root
+    password:
+  security:
+    #        设置固定security的账号密码
+    user:
+      name: user
+      password: 111111
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**Mapper.xml
+eascaty:
+  jwt:
+    header: Authorization
+    expire: 604800 #7天,秒单位
+    secret: jsaskladkgjawldadomkasd56a4d1aw5

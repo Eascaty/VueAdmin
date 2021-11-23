@@ -21,37 +21,42 @@ import java.io.InputStreamReader;
 import java.util.UUID;
 
 @RestController
-public class AuthController extends BaseController{
+public class AuthController extends BaseController {
 
-        @Autowired
-        Producer producer;
-
-
-        @GetMapping("/captcha")
-        public Result captcha() throws IOException {
-            String key = UUID.randomUUID().toString();
-            String code = producer.createText();
-
-            BufferedImage image = producer.createImage(code);
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            ImageIO.write(image, "jpg",outputStream);
-
-            BASE64Encoder encoder = new BASE64Encoder();
-            String str = "data:image/jpeg;base64,";
-
-            String base64Img = str + encoder.encode(outputStream.toByteArray());
-
-            redisUtil.hset(Const.CAPTCHA_KEY,key,code,120);
-
-            return Result.succ(
-                    MapUtil.builder()
-                    .put("token",key)
-                    .put("captchaImg",base64Img )
-                    .build()
-            );
-        }
+    @Autowired
+    Producer producer;
 
 
+    @GetMapping("/captcha")
+    public Result captcha() throws IOException {
+        String key = UUID.randomUUID().toString();
+        String code = producer.createText();
+
+
+//            为了测试
+        key = "aaaaa";
+        code = "11111";
+
+
+
+        BufferedImage image = producer.createImage(code);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        ImageIO.write(image, "jpg", outputStream);
+
+        BASE64Encoder encoder = new BASE64Encoder();
+        String str = "data:image/jpeg;base64,";
+
+        String base64Img = str + encoder.encode(outputStream.toByteArray());
+
+        redisUtil.hset(Const.CAPTCHA_KEY, key, code, 120);
+
+        return Result.succ(
+                MapUtil.builder()
+                        .put("token", key)
+                        .put("captchaImg", base64Img)
+                        .build()
+        );
+    }
 
 
 }
