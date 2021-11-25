@@ -3,8 +3,11 @@ package com.Eascaty.service.impl;
 import com.Eascaty.entity.SysUser;
 import com.Eascaty.mapper.SysUserMapper;
 import com.Eascaty.service.SysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import javax.management.Query;
 
 /**
  * <p>
@@ -17,4 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
+    @Override
+    public SysUser getByUsername(String username) {
+
+        return getOne(new QueryWrapper<SysUser>().eq("username",username));
+
+    }
 }
