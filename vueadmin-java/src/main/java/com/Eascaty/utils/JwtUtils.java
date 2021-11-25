@@ -42,7 +42,7 @@ public class JwtUtils {
                     .parseClaimsJws(jwt)
                     .getBody();
         } catch (Exception e) {
-
+            
             return null;
         }
 

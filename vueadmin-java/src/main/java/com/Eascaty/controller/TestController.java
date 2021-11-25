@@ -14,8 +14,12 @@ public class TestController {
 
     @GetMapping("/test")
     public Result test(){
-
         return Result.succ(sysUserService.list());
     }
+
+
+
+
+
 
 }

@@ -1,9 +1,11 @@
 package com.Eascaty.config;
 
 import com.Eascaty.security.CaptchaFilter;
+import com.Eascaty.security.JwtAuthenticationFilter;
 import com.Eascaty.security.LoginFailureHandler;
 import com.Eascaty.security.LoginSuccessHandler;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -26,6 +28,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     CaptchaFilter captchaFilter;
 
+    @Bean
+    JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager());
+        return jwtAuthenticationFilter;
+    }
 
     private static final String[] URL_WHITELIST = {
             "/login",
@@ -64,7 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 配置自定义的过滤器
                 .and()
-//                .addFilter(jwtAuthenticationFilter())
+                .addFilter(jwtAuthenticationFilter())
                 .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
 
 
