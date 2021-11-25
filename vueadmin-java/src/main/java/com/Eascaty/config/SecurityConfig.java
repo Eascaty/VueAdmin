@@ -1,9 +1,6 @@
 package com.Eascaty.config;
 
-import com.Eascaty.security.CaptchaFilter;
-import com.Eascaty.security.JwtAuthenticationFilter;
-import com.Eascaty.security.LoginFailureHandler;
-import com.Eascaty.security.LoginSuccessHandler;
+import com.Eascaty.security.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,6 +24,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     CaptchaFilter captchaFilter;
+
+    @Autowired
+    JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
+
+    @Autowired
+    JwtAccessDeniedHandler jwtAccessDeniedHandler;
+
 
     @Bean
     JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
@@ -66,8 +70,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 异常处理器
                 .and()
                 .exceptionHandling()
-//                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//                .accessDeniedHandler(jwtAccessDeniedHandler)
+                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+                .accessDeniedHandler(jwtAccessDeniedHandler)
 
                 // 配置自定义的过滤器
                 .and()

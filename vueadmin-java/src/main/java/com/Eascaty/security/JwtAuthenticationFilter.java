@@ -2,11 +2,11 @@ package com.Eascaty.security;
 
 import cn.hutool.core.util.StrUtil;
 import com.Eascaty.utils.JwtUtils;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -28,6 +28,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+
 
         String jwt  = request.getHeader(jwtUtils.getHeader());
         if(StrUtil.isBlankOrUndefined(jwt)) {
