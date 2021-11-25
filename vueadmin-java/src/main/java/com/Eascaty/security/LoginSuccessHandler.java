@@ -3,6 +3,7 @@ package com.Eascaty.security;
 import cn.hutool.json.JSONUtil;
 import com.Eascaty.common.lang.Result;
 import com.Eascaty.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -19,6 +20,7 @@ import java.io.IOException;
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 
+    @Autowired
     JwtUtils jwtUtils;
 
     @Override
@@ -30,7 +32,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler{
 
 //        生成jwt,并放置到请求头中
         String jwt = jwtUtils.generateToken(authentication.getName());
-        response.setHeader(jwtUtils.getHeader(), jwt);
+        response.setHeader(jwtUtils.getHeader(),jwt);
 
         Result result = Result.succ("??????");
 
