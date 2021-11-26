@@ -2,6 +2,7 @@ package com.Eascaty.service;
 
 import com.Eascaty.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author Zxl
  * @since 2021-11-18
  */
+
 public interface SysMenuService extends IService<SysMenu> {
 
 }
