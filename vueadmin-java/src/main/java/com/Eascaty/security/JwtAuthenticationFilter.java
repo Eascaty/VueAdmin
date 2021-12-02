@@ -1,6 +1,8 @@
 package com.Eascaty.security;
 
 import cn.hutool.core.util.StrUtil;
+import com.Eascaty.entity.SysUser;
+import com.Eascaty.service.SysUserService;
 import com.Eascaty.utils.JwtUtils;
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,12 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    UserDetailServiceImpI userdetailService;
+
+    @Autowired
+    SysUserService sysUserService;
+
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -30,28 +38,33 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
 
-        String jwt  = request.getHeader(jwtUtils.getHeader());
-        if(StrUtil.isBlankOrUndefined(jwt)) {
+        String jwt = request.getHeader(jwtUtils.getHeader());
+        if (StrUtil.isBlankOrUndefined(jwt)) {
             chain.doFilter(request, response);
+
             return;
         }
 
         Claims claim = jwtUtils.getClaimByToken(jwt);
-        if(claim == null){
+        if (claim == null) {
             throw new JwtException("token 异常");
         }
-        if(jwtUtils.isTokenExpired(claim)){
+
+        if (jwtUtils.isTokenExpired(claim)) {
             throw new JwtException("token已过期");
         }
 
         String username = claim.getSubject();
 //        获取用户的权限信息
 
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username,null,null);
+        SysUser sysUser = sysUserService.getByUsername(username);
+
+        UsernamePasswordAuthenticationToken token
+                = new UsernamePasswordAuthenticationToken(username, null, userdetailService.getUserAuthority(sysUser.getId()));
+
         SecurityContextHolder.getContext().setAuthentication(token);
 
-        chain.doFilter(request,response);
-
+        chain.doFilter(request, response);
 
 
     }

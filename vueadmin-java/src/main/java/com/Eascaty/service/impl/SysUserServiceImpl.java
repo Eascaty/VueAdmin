@@ -18,6 +18,7 @@ import javax.management.Query;
 import java.util.List;
 import java.util.stream.Collectors;
 
+
 /**
  * <p>
  *  服务实现类
@@ -49,15 +50,16 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public String getUserAuthorityInfo(Long userId) {
 
+//        ROLE_admin,ROLE_normal,sys:user:list,....
         String authority = "";
 
-//        获取角色
+//        获取角色编码
        List<SysRole> roles = sysRoleService.list(new QueryWrapper<SysRole>()
                 .inSql("id","select role_id from sys_user_role where user_id = " +userId));
 
         if(roles.size() >0){
-            String roleCodes = roles.stream().map(r -> "Role"+r.getCode()).collect(Collectors.joining(","));
-            authority = roleCodes;
+            String roleCodes = roles.stream().map(r -> "ROLE_"+r.getCode()).collect(Collectors.joining(","));
+            authority = roleCodes.concat(",");
 
         }
 //        获取菜单操作编码
@@ -65,10 +67,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if(menuIds.size() > 0){
 
             List<SysMenu> menus = sysmenuService.listByIds(menuIds);
-            String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collecotrs.joining(","));
+            String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
+
+            authority =authority.concat(menuPerms);
+
 
         }
 
+        return authority;
 
 
 

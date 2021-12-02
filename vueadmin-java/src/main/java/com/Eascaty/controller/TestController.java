@@ -1,6 +1,9 @@
 package com.Eascaty.controller;
 
 import com.Eascaty.common.lang.Result;
+import com.Eascaty.entity.SysUser;
+import com.Eascaty.security.AccountUser;
+import com.Eascaty.security.UserDetailServiceImpI;
 import com.Eascaty.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +23,7 @@ public class TestController {
     @PreAuthorize("hasRole('admin')")
     @GetMapping("/test")
     public Result test() {
+
         return Result.succ(sysUserService.list());
     }
 
