@@ -51,30 +51,37 @@ public class AccountUser implements UserDetails {
         this.authorities = authorities;
     }
 
+    @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
     }
 
+    @Override
     public String getPassword() {
         return this.password;
     }
 
+    @Override
     public String getUsername() {
         return this.username;
     }
 
+    @Override
     public boolean isEnabled() {
         return this.enabled;
     }
 
+    @Override
     public boolean isAccountNonExpired() {
         return this.accountNonExpired;
     }
 
+    @Override
     public boolean isAccountNonLocked() {
         return this.accountNonLocked;
     }
 
+    @Override
     public boolean isCredentialsNonExpired() {
         return this.credentialsNonExpired;
     }
