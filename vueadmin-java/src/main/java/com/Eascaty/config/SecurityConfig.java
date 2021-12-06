@@ -37,6 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailServiceImpI userDetailService;
 
+    @Autowired
+    JwtLogoutSuccessHandler jwtLogoutSuccessHandler;
+
     @Bean
     JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager());
@@ -44,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    BCryptPasswordEncoder bCryptPasswordEncoder(){
+    BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
@@ -55,15 +58,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/favicon.ico",
     };
 
-        @Override
-        protected void configure(HttpSecurity http) throws Exception {
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 
         http.cors().and().csrf().disable()
 
 //                        登录配置规则
                 .formLogin()
-                        .successHandler(loginSuccessHandler)
-                        .failureHandler(loginFailureHandler)
+                .successHandler(loginSuccessHandler)
+                .failureHandler(loginFailureHandler)
+
+                .and()
+                .logout()
+                .logoutSuccessHandler(jwtLogoutSuccessHandler)
+
 
 //                      禁用Session
                 .and()

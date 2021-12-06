@@ -83,7 +83,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
 
             }
-    
+
             redisUtil.set("GrantedAuthority:" + sysUser.getUsername(),authority,60*60);
 
         }
