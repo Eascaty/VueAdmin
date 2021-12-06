@@ -14,10 +14,10 @@ Vue.config.productionTip = false
 
 Vue.use(Element)
 
-require("./mock.js")
+// require("./mock.js")
 
 new Vue({
-  router,
-  store,
-  render: h => h(App)
+    router,
+    store,
+    render: h => h(App)
 }).$mount('#app')
