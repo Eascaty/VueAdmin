@@ -1,8 +1,11 @@
 package com.Eascaty.service;
 
+import com.Eascaty.common.dto.SysMenuDto;
 import com.Eascaty.entity.SysMenu;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -14,5 +17,7 @@ import org.springframework.stereotype.Repository;
  */
 
 public interface SysMenuService extends IService<SysMenu> {
+
+    List<SysMenuDto> getCurrentUserNav();
 
 }

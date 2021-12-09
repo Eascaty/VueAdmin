@@ -41,6 +41,7 @@ public class UserDetailServiceImpI implements UserDetailsService {
         String authority =sysUserService.getUserAuthorityInfo(userId);  //RoLE_admin,RoLE_normal,sys:user:list,....
 
         return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
+
         }
 
 

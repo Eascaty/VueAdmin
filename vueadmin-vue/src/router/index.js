@@ -68,14 +68,11 @@ router.beforeEach((to, from, next) => {
 
     let hasRoute = store.state.menus.hasRoutes
     if (!hasRoute) {
-
-
         axios.get("/sys/menu/nav", {
             headers: {
                 Authorization: localStorage.getItem("token")
             }
         }).then(res => {
-
             console.log(res.data.data)
             //拿到menulist
             store.commit("setMenuList", res.data.data.nav)
