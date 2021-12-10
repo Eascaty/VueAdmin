@@ -33,8 +33,8 @@ public class CaptchaFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
         String url = httpServletRequest.getRequestURI();
-        log.info("获取到login链接，正在校验验证码 -- " + url);
-        log.info("httpmethod -- " + httpServletRequest.getMethod());
+//        log.info("获取到login链接，正在校验验证码 -- " + url);
+//        log.info("httpmethod -- " + httpServletRequest.getMethod());
         if ("/login".equals(url) && httpServletRequest.getMethod().equals("POST")) {
 
             try {

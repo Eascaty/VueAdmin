@@ -177,7 +177,7 @@
             return {
 
                 dialogVisible: false,
-                editForm: {},
+                    editForm: {},
                 editFormRules: {
                     parentId: [{required: true, message: '请选择上级菜单', trigger: 'blur'}],
                     name: [{required: true, message: '请输入名称', trigger: 'blur'}],
@@ -226,11 +226,11 @@
 
                             this.dialogVisible = false
                         }).catch(error => {
-                            this.getCaptcha();
+                            // this.getCaptcha();
                             console.log('error submit!!');
                         })
                     } else {
-                        this.getCaptcha();
+                        // this.getCaptcha();
                         console.log('error submit!!');
                         return false;
                     }

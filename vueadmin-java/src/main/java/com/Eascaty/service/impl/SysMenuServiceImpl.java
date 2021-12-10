@@ -9,6 +9,7 @@ import com.Eascaty.mapper.SysUserMapper;
 import com.Eascaty.service.SysMenuService;
 import com.Eascaty.service.SysRoleService;
 import com.Eascaty.service.SysUserService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,6 +53,17 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
 
 
+    }
+
+    @Override
+    public List<SysMenu> tree() {
+
+//        获取所有菜单信息
+        List<SysMenu> sysMenus = this.list(new QueryWrapper<SysMenu>().orderByAsc("orderNum"));
+
+//        转成树状结构
+
+        return buildTreeMenu(sysMenus);
     }
 
     private List<SysMenuDto> convert(List<SysMenu> menuTree) {

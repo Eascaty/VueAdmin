@@ -4,6 +4,8 @@ package com.Eascaty.controller;
 import cn.hutool.core.map.MapUtil;
 import com.Eascaty.common.lang.Const;
 import com.Eascaty.common.lang.Result;
+import com.Eascaty.entity.SysUser;
+import com.Eascaty.service.SysUserService;
 import com.Eascaty.utils.RedisUtil;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.Principal;
 import java.util.UUID;
 
 @RestController
@@ -58,5 +61,23 @@ public class AuthController extends BaseController {
         );
     }
 
+    /**
+     * 获取当前用户信息接口
+     * @param principal
+     * @return
+     */
+    @GetMapping("/sys/userInfo")
+        public Result Userinfo(Principal principal){
+
+            SysUser sysUser = sysUserService.getByUsername(principal.getName());
+
+            return Result.succ(MapUtil.builder()
+                    .put("id",sysUser.getId())
+                    .put("username",sysUser.getUsername())
+                    .put("avatar",sysUser.getAvatar())
+                    .put("created",sysUser.getCreated())
+                    .map()
+            );
+        }
 
 }

@@ -77,6 +77,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             if(menuIds.size() > 0){
 
                 List<SysMenu> menus = sysmenuService.listByIds(menuIds);
+
                 String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
 
                 authority =authority.concat(menuPerms);

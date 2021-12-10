@@ -20,4 +20,7 @@ public interface SysMenuService extends IService<SysMenu> {
 
     List<SysMenuDto> getCurrentUserNav();
 
+    List<SysMenu> tree();
+
+
 }
