@@ -115,7 +115,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
     @Override
     public void clearUserAuthorityInfoByMenuId(Long menuId) {
-            List<SysUser>sysUser= sysuserMapper.listBymenuId(menuId);
+            List<SysUser>sysUser= sysuserMapper.listByMenuId(menuId);
 
             sysUser.forEach(u ->{
             this.clearUserAuthorityInfo(u.getUsername());

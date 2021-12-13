@@ -214,7 +214,7 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$axios.post('/sys/menu' + (this.editForm.id ? 'update' : 'save') + qs.stringify(this.loginForm)).then(res => {
+                        this.$axios.post('/sys/menu/' + (this.editForm.id ? 'update' : 'save') + qs.stringify(this.loginForm)).then(res => {
                             this.$message({
                                 showClose: true,
                                 message: '恭喜你，这是一条成功消息',
@@ -227,7 +227,8 @@
                             this.dialogVisible = false
                         }).catch(error => {
                             // this.getCaptcha();
-                            console.log('error submit!!');
+                            console.log('error sue' +
+                                'bmit!!');
                         })
                     } else {
                         // this.getCaptcha();
