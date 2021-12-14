@@ -44,9 +44,9 @@
                 <template slot-scope="scope">
 
 
-                    <el-tag size="small" v-if="scope.row.type ===0"> 目录</el-tag>
-                    <el-tag size="small" v-else-if="scope.row.type ===1" type="success"> 菜单</el-tag>
-                    <el-tag size="small" v-else-if="scope.row.type ===2" type="info"> 按钮</el-tag>
+                    <el-tag size="small" v-if="scope.row.type === 0"> 目录</el-tag>
+                    <el-tag size="small" v-else-if="scope.row.type === 1" type="success"> 菜单</el-tag>
+                    <el-tag size="small" v-else-if="scope.row.type === 2" type="info"> 按钮</el-tag>
 
 
                 </template>
@@ -70,8 +70,8 @@
                     label="状态">
                 <template slot-scope="scope">
 
-                    <el-tag size="small" v-if="scope.row.statu ===1" type="success">正常</el-tag>
-                    <el-tag size="small" v-else-if="scope.row.statu ===0" type="danger">禁用</el-tag>
+                    <el-tag size="small" v-if="scope.row.statu === 1" type="success">正常</el-tag>
+                    <el-tag size="small" v-else-if="scope.row.statu === 0" type="danger">禁用</el-tag>
                 </template>
             </el-table-column>
 
@@ -214,18 +214,20 @@
             submitForm(formName) {
                 this.$refs[formName].validate((valid) => {
                     if (valid) {
-                        this.$axios.post('/sys/menu/' + (this.editForm.id ? 'update' : 'save') + qs.stringify(this.loginForm)).then(res => {
-                            this.$message({
-                                showClose: true,
-                                message: '恭喜你，这是一条成功消息',
-                                type: 'success',
-                                onClose: () => {
-                                    this.getMenuTree();
-                                }
-                            });
+                        this.$axios.post('/sys/menu/' + (this.editForm.id?'update' : 'save'), (this.editForm))
+                            .then(res => {
 
-                            this.dialogVisible = false
-                        }).catch(error => {
+                                this.$message({
+                                    showClose: true,
+                                    message: '恭喜你，操作成功',
+                                    type: 'success',
+                                    onClose:() => {
+                                        this.getMenuTree()
+                                    }
+                                });
+
+                                this.dialogVisible = false
+                            }).catch(error => {
                             // this.getCaptcha();
                             console.log('error sue' +
                                 'bmit!!');

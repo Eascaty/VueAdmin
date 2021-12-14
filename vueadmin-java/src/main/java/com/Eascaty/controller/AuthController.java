@@ -67,7 +67,7 @@ public class AuthController extends BaseController {
      * @return
      */
     @GetMapping("/sys/userInfo")
-        public Result Userinfo(Principal principal){
+        public Result userInfo(Principal principal){
 
             SysUser sysUser = sysUserService.getByUsername(principal.getName());
 

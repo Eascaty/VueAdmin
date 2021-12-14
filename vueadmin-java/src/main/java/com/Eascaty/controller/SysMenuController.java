@@ -1,5 +1,6 @@
 package com.Eascaty.controller;
 
+
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.Eascaty.common.dto.SysMenuDto;
@@ -9,7 +10,7 @@ import com.Eascaty.entity.SysMenu;
 import com.Eascaty.entity.SysRoleMenu;
 import com.Eascaty.entity.SysUser;
 import org.apache.ibatis.executor.ResultExtractor;
-import org.springframework.http.MediaType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +22,7 @@ import java.util.List;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author 我的公众号：Eascaty
@@ -31,8 +32,11 @@ import java.util.List;
 @RequestMapping("/sys/menu")
 public class SysMenuController extends BaseController {
 
+
+
     /**
      * 用户当前用户的菜单和权限信息
+     *
      * @param principal
      * @return
      */
@@ -67,19 +71,20 @@ public class SysMenuController extends BaseController {
         List<SysMenu> menus = sysMenuService.tree();
         return Result.succ(menus);
     }
-    @PostMapping(value="/save",produces = MediaType.APPLICATION_JSON_VALUE)
+
+    @PostMapping("/save")
     @PreAuthorize("hasAuthority('sys:menu:save')")
-    public Result save( @RequestBody SysMenu sysMenu) {
+    public Result save(@Validated @RequestBody SysMenu sysMenu) {
 
         sysMenu.setCreated(LocalDateTime.now());
-
+//
         sysMenuService.save(sysMenu);
         return Result.succ(sysMenu);
     }
 
-    @PostMapping("/update")
+    @RequestMapping("/update")
     @PreAuthorize("hasAuthority('sys:menu:update')")
-    public Result update(@Validated @RequestBody SysMenu sysMenu) {
+    public Result update(@Validated @RequestBody(required = false) SysMenu sysMenu) {
 
         sysMenu.setUpdated(LocalDateTime.now());
 

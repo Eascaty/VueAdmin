@@ -9,7 +9,7 @@ let Result = {
 }
 
 Mock.mock('/captcha', 'get', () => {
-
+ 
     Result.data = {
         token: Random.string(32),
         captchaImg: Random.dataImage('120x40', 'p7n5w')
