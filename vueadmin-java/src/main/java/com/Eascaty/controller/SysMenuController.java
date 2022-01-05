@@ -30,14 +30,14 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/sys/menu")
-public class SysMenuController extends BaseController {
+public class  SysMenuController extends BaseController {
 
 
 
     /**
      * 用户当前用户的菜单和权限信息
      *
-     * @param principal
+     * @param   principal
      * @return
      */
     @GetMapping("/nav")
@@ -77,7 +77,6 @@ public class SysMenuController extends BaseController {
     public Result save(@Validated @RequestBody SysMenu sysMenu) {
 
         sysMenu.setCreated(LocalDateTime.now());
-//
         sysMenuService.save(sysMenu);
         return Result.succ(sysMenu);
     }

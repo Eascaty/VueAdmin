@@ -60,9 +60,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
 
 //        获取所有菜单信息
         List<SysMenu> sysMenus = this.list(new QueryWrapper<SysMenu>().orderByAsc("orderNum"));
-
 //        转成树状结构
-
         return buildTreeMenu(sysMenus);
     }
 
@@ -92,6 +90,11 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         });
             return menuDtos;
     }
+
+
+
+
+
 
     private List<SysMenu> buildTreeMenu(List<SysMenu> menus) {
         List<SysMenu> finalMenus = new ArrayList<>();

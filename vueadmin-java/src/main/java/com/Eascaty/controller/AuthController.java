@@ -73,7 +73,7 @@ public class AuthController extends BaseController {
 
             return Result.succ(MapUtil.builder()
                     .put("id",sysUser.getId())
-                    .put("username",sysUser.getUsername())
+                    .put("use rname",sysUser.getUsername())
                     .put("avatar",sysUser.getAvatar())
                     .put("created",sysUser.getCreated())
                     .map()
