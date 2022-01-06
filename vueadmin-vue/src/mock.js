@@ -317,7 +317,7 @@ Mock.mock(RegExp('/sys/menu/*'), 'post', () => {
 
 //////////////// 角色管理 ////////////////
 
-Mock.mock(RegExp('/sys/role/list*'), 'get', () => {
+    Mock.mock(RegExp('/sys/role/list*'), 'get', () => {
 
     Result.data = {
         "records": [
