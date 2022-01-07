@@ -38,7 +38,7 @@ public class SysRoleController extends BaseController {
 
 
     @GetMapping("/info/{id}")
-//    @PreAuthorize("hasAuthority('sys:role:list')")
+    @PreAuthorize("hasAuthority('sys:role:list')")
     public Result info(@PathVariable("id") Long id) {
 
         SysRole sysrole = sysRoleService.getById(id);
@@ -52,7 +52,7 @@ public class SysRoleController extends BaseController {
     }
 
     @GetMapping("/list")
-//    @PreAuthorize("hasAuthority('sys:role:list')")
+    @PreAuthorize("hasAuthority('sys:role:list')")
     public Result list(String name) {
 
         Page<SysRole> pageData = sysRoleService.page(getPage(),
@@ -62,7 +62,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping("/save")
-//    @PreAuthorize("hasAuthority('sys:role:save')")
+    @PreAuthorize("hasAuthority('sys:role:save')")
     public Result save(@Validated @RequestBody SysRole sysrole) {
         sysrole.setCreated(LocalDateTime.now());
         sysrole.setStatu(Const.STATUS_ON);
@@ -71,7 +71,7 @@ public class SysRoleController extends BaseController {
         return Result.succ(sysrole);
     }
     @PostMapping("/update")
-//    @PreAuthorize("hasAuthority('sys:role:update')")
+    @PreAuthorize("hasAuthority('sys:role:update')")
     public Result info(@Validated @RequestBody SysRole sysrole) {
 
         sysrole.setUpdated(LocalDateTime.now());
@@ -84,7 +84,7 @@ public class SysRoleController extends BaseController {
     }
 
     @PostMapping("/delete")
-//    @PreAuthorize("hasAuthority('sys:role:delete')")
+    @PreAuthorize("hasAuthority('sys:role:delete')")
     @Transactional
     public Result info(@RequestBody Long[] ids) {
 
@@ -104,7 +104,7 @@ public class SysRoleController extends BaseController {
 
      @Transactional
     @PostMapping("/perm/{roleId}")
-//     @PreAuthorize("hasAuthority('sys:role:perm')")
+     @PreAuthorize("hasAuthority('sys:role:perm')")
     public Result info(@PathVariable("roleId") Long roleId,@RequestBody Long[] menuIds) {
 
         List<SysRoleMenu> sysRoleMenus = new ArrayList<>();
