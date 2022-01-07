@@ -6,7 +6,7 @@ import User from '../views/sys/User.vue'
 import Role from '../views/sys/Role.vue'
 import Menu from '../views/sys/Menu.vue'
 
-import axios from "axios";
+import axios from "../axois";
 import store from "../store";
 
 Vue.use(VueRouter)
@@ -20,11 +20,17 @@ const routes = [
             {
                 path: '/index',
                 name: 'Index',
+                meta: {
+                    title: "首页"
+                },
                 component: Index
             },
             {
                 path: '/userCenter',
                 name: 'UserCenter',
+                meta: {
+                    title: "个人中心"
+                },
                 component: () =>
                     import( '@/views/UserCenter.vue')
             },
@@ -67,7 +73,13 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 
     let hasRoute = store.state.menus.hasRoutes
-    if (!hasRoute) {
+    let token = localStorage.getItem('token')
+
+    if (to.path == '/login') {
+        next()
+    } else if (!token) {
+        next({path: '/login'})
+    } else if (token && !hasRoute) {
         axios.get("/sys/menu/nav", {
             headers: {
                 Authorization: localStorage.getItem("token")
